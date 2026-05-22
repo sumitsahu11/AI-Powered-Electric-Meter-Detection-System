@@ -18,4 +18,4 @@ uploads/
 *.pth
 data/
 models/
-results/
+results/yolov5/yolov5_env/
