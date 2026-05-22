@@ -1,3 +1,129 @@
+<svg width="860" height="300" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Electric Meter Detection System</title>
+  <desc>AI-powered automated meter detection using YOLOv5 — 95% precision, 152 FPS, 0.94 mAP</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="55%" stop-color="#0f0c29"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e0e7ff"/>
+      <stop offset="42%" stop-color="#a5b4fc"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0a14" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#6366f1" stop-opacity="0.7"/>
+      <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0a0a14" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="statBar" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a5b4fc" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="orb1g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="orb2g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="orb3g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="clip"><rect width="860" height="300" rx="14"/></clipPath>
+  </defs>
+
+  <rect width="860" height="300" rx="14" fill="url(#bg)"/>
+  <g clip-path="url(#clip)">
+
+    <!-- Grid -->
+    <g stroke="#6366f1" stroke-opacity="0.07" stroke-width="0.5">
+      <line x1="0" y1="50" x2="860" y2="50"/>
+      <line x1="0" y1="100" x2="860" y2="100"/>
+      <line x1="0" y1="150" x2="860" y2="150"/>
+      <line x1="0" y1="200" x2="860" y2="200"/>
+      <line x1="0" y1="250" x2="860" y2="250"/>
+      <line x1="86" y1="0" x2="86" y2="300"/>
+      <line x1="172" y1="0" x2="172" y2="300"/>
+      <line x1="258" y1="0" x2="258" y2="300"/>
+      <line x1="344" y1="0" x2="344" y2="300"/>
+      <line x1="430" y1="0" x2="430" y2="300"/>
+      <line x1="516" y1="0" x2="516" y2="300"/>
+      <line x1="602" y1="0" x2="602" y2="300"/>
+      <line x1="688" y1="0" x2="688" y2="300"/>
+      <line x1="774" y1="0" x2="774" y2="300"/>
+    </g>
+
+    <!-- Glow orbs -->
+    <ellipse cx="110" cy="70" rx="220" ry="170" fill="url(#orb1g)"/>
+    <ellipse cx="790" cy="250" rx="180" ry="140" fill="url(#orb2g)"/>
+    <ellipse cx="480" cy="145" rx="140" ry="110" fill="url(#orb3g)"/>
+
+    <!-- Detection boxes (right) -->
+    <rect x="706" y="46" width="54" height="40" rx="2" fill="none" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.55"/>
+    <text x="708" y="42" font-family="monospace" font-size="8" fill="#06b6d4" fill-opacity="0.75">meter 0.96</text>
+    <rect x="730" y="108" width="46" height="33" rx="2" fill="none" stroke="#06b6d4" stroke-width="1.1" stroke-opacity="0.4"/>
+    <text x="732" y="104" font-family="monospace" font-size="8" fill="#06b6d4" fill-opacity="0.55">meter 0.91</text>
+    <rect x="706" y="175" width="58" height="42" rx="2" fill="none" stroke="#a5b4fc" stroke-width="1.1" stroke-opacity="0.38"/>
+    <text x="708" y="171" font-family="monospace" font-size="8" fill="#a5b4fc" fill-opacity="0.5">meter 0.94</text>
+
+    <!-- Dot accents -->
+    <circle cx="676" cy="58"  r="2"   fill="#6366f1" fill-opacity="0.55"/>
+    <circle cx="798" cy="88"  r="1.5" fill="#06b6d4" fill-opacity="0.45"/>
+    <circle cx="754" cy="158" r="2.5" fill="#a78bfa" fill-opacity="0.35"/>
+    <circle cx="818" cy="202" r="1.5" fill="#6366f1" fill-opacity="0.4"/>
+    <circle cx="656" cy="228" r="2"   fill="#06b6d4" fill-opacity="0.32"/>
+    <circle cx="78"  cy="238" r="1.5" fill="#6366f1" fill-opacity="0.3"/>
+    <circle cx="38"  cy="178" r="2"   fill="#06b6d4" fill-opacity="0.28"/>
+    <circle cx="52"  cy="108" r="1.5" fill="#a78bfa" fill-opacity="0.3"/>
+
+    <!-- Corner brackets -->
+    <path d="M18 30 L18 14 L34 14" fill="none" stroke="#6366f1" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M842 30 L842 14 L826 14" fill="none" stroke="#06b6d4" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M18 270 L18 286 L34 286" fill="none" stroke="#06b6d4" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M842 270 L842 286 L826 286" fill="none" stroke="#6366f1" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
+
+    <!-- Eyebrow label -->
+    <text x="390" y="50" font-family="monospace" font-size="10" fill="#6366f1" fill-opacity="0.88" text-anchor="middle" letter-spacing="3.5">INTERNSHIP PROJECT · TPCODL · 2026</text>
+    <rect x="195" y="56" width="390" height="0.7" fill="url(#lineGrad)"/>
+
+    <!-- Main title -->
+    <text x="390" y="118" font-family="Arial Black, Arial, sans-serif" font-size="48" font-weight="900" fill="url(#titleGrad)" text-anchor="middle" letter-spacing="-2">Electric Meter</text>
+    <text x="390" y="170" font-family="Arial Black, Arial, sans-serif" font-size="48" font-weight="900" fill="url(#titleGrad)" text-anchor="middle" letter-spacing="-2">Detection System</text>
+
+    <!-- Subtitle -->
+    <text x="390" y="193" font-family="monospace" font-size="11" fill="#a5b4fc" fill-opacity="0.6" text-anchor="middle" letter-spacing="0.8">automated ai pipeline · yolov5 + pytorch · flask rest api</text>
+
+    <!-- Stats bar -->
+    <rect x="58" y="210" width="584" height="62" rx="8" fill="url(#statBar)" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
+    <line x1="175" y1="222" x2="175" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
+    <line x1="292" y1="222" x2="292" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
+    <line x1="409" y1="222" x2="409" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
+    <line x1="526" y1="222" x2="526" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
+
+    <!-- Stat values -->
+    <text x="116" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#a5b4fc" text-anchor="middle">95%+</text>
+    <text x="116" y="257" font-family="monospace" font-size="8.5" fill="#6366f1" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">PRECISION</text>
+
+    <text x="233" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#67e8f9" text-anchor="middle">152</text>
+    <text x="233" y="257" font-family="monospace" font-size="8.5" fill="#06b6d4" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">FPS GPU</text>
+
+    <text x="350" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#a5b4fc" text-anchor="middle">0.94</text>
+    <text x="350" y="257" font-family="monospace" font-size="8.5" fill="#6366f1" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">mAP@50</text>
+
+    <text x="467" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#67e8f9" text-anchor="middle">20x</text>
+    <text x="467" y="257" font-family="monospace" font-size="8.5" fill="#06b6d4" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">FASTER</text>
+
+    <text x="584" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#a5b4fc" text-anchor="middle">90%</text>
+    <text x="584" y="257" font-family="monospace" font-size="8.5" fill="#6366f1" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">COST SAVED</text>
+
+  </g>
+</svg>
+
 <div align="center">
 
 <!-- PREMIUM BANNER -->
