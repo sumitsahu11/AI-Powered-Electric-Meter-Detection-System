@@ -1,15 +1,4 @@
 
-</script>
-const pts = document.getElementById('pts');
-for(let i=0;i<22;i++){
-  const p=document.createElement('div');
-  p.className='p';
-  const s=Math.random()*2.5+1;
-  const colors=['rgba(99,102,241,.5)','rgba(6,182,212,.45)','rgba(167,139,250,.4)'];
-  p.style.cssText=`width:${s}px;height:${s}px;background:${colors[Math.floor(Math.random()*3)]};left:${Math.random()*100}%;bottom:-4px;animation-duration:${6+Math.random()*9}s;animation-delay:${Math.random()*9}s;opacity:0`;
-  pts.appendChild(p);
-}
-</script>
 
 
 <div align="center">
