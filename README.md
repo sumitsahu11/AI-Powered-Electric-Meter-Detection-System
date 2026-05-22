@@ -1,42 +1,5 @@
 
-<div class="wrap" role="img" aria-label="Electric Meter Detection System banner">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-  <div class="scanline"></div>
-  <div class="corner c-tl"></div>
-  <div class="corner c-tr"></div>
-  <div class="corner c-bl"></div>
-  <div class="corner c-br"></div>
-  <div class="particles" id="pts"></div>
-  <div class="det-boxes">
-    <div class="dbox db1" data-label="meter 0.96"></div>
-    <div class="dbox db2" data-label="meter 0.91"></div>
-    <div class="dbox db3" data-label="meter 0.94"></div>
-  </div>
-  <div class="content">
-    <div class="eyebrow">INTERNSHIP PROJECT · TPCODL · 2026</div>
-    <div class="title">Electric Meter<br>Detection System</div>
-    <div class="sub">automated ai pipeline &nbsp;·&nbsp; yolov5 + pytorch &nbsp;·&nbsp; flask rest api</div>
-    <div class="divline"></div>
-    <div class="stats">
-      <div class="stat"><span class="sn">95%+</span><span class="sl">Precision</span></div>
-      <div class="stat"><span class="sn">152</span><span class="sl">FPS GPU</span></div>
-      <div class="stat"><span class="sn">0.94</span><span class="sl">mAP@50</span></div>
-      <div class="stat"><span class="sn">20×</span><span class="sl">Faster</span></div>
-      <div class="stat"><span class="sn">90%</span><span class="sl">Cost Saved</span></div>
-    </div>
-    <div class="badges">
-      <span class="badge bp">YOLOv5 · PyTorch</span>
-      <span class="badge bc">Flask REST API</span>
-      <span class="badge bv">OpenCV · SQLite</span>
-      <span class="badge bp">Python 3.10+</span>
-      <span class="badge bc">14 MB · 6.5 ms/img</span>
-    </div>
-  </div>
-</div>
-
-<script>
+</script>
 const pts = document.getElementById('pts');
 for(let i=0;i<22;i++){
   const p=document.createElement('div');
