@@ -19,3 +19,5 @@ uploads/
 data/
 models/
 results/yolov5/yolov5_env/
+results/
+yolov5/yolov5_env/uploaded_videos/
