@@ -18,6 +18,6 @@ uploads/
 *.pth
 data/
 models/
-results/yolov5/yolov5_env/
 results/
-yolov5/yolov5_env/uploaded_videos/
+yolov5/yolov5_env/
+uploaded_videos/
