@@ -1,23 +1,52 @@
-venv/
-env/
+# ===== Python =====
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 *.egg-info/
 dist/
 build/
 .eggs/
-uploads/
-*.log
+*.egg
+ 
+# ===== Virtual Environment =====
+venv/
+env/
+.venv/
+ 
+# ===== Environment / Secrets =====
 .env
-.DS_Store
-.vscode/
-.idea/
+*.env
+ 
+# ===== Database (contains user data) =====
 *.db
+*.sqlite
+*.sqlite3
+ 
+# ===== ML Model Weights (too large for Git) =====
 *.pt
 *.pth
+*.weights
+*.onnx
+ 
+# ===== Data Folders (too large, regenerate locally) =====
 data/
-models/
 results/
-yolov5/yolov5_env/
 uploaded_videos/
+uploads/
+ 
+# ===== YOLOv5 local clone =====
+yolov5/yolov5_env/
+ 
+# ===== OS Files =====
+.DS_Store
+Thumbs.db
+ 
+# ===== IDE =====
+.vscode/
+.idea/
+ 
+# ===== Logs =====
+*.log
+logs/
+ 
