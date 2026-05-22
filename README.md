@@ -1,8 +1,8 @@
 <div align="center">
 
-# ⚡ Electric Meter Detection System
+<img src="assets/banner.svg" width="100%" alt="Electric Meter Detection System Banner"/>
 
-### `INTERNSHIP PROJECT · TPCODL · 2026`
+<br/>
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
@@ -18,16 +18,6 @@
 ![Model Size](https://img.shields.io/badge/Model%20Size-14%20MB-blue?style=flat-square)
 ![Cost Reduction](https://img.shields.io/badge/Cost%20Reduction-90%25-green?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-red?style=flat-square)
-
-<br/>
-
-> **automated ai pipeline · yolov5 + pytorch · flask rest api**
-
-<br/>
-
-| 🎯 Precision | ⚡ FPS (GPU) | 📐 mAP@50 | 🚀 Speed Gain | 💰 Cost Saved |
-|:---:|:---:|:---:|:---:|:---:|
-| **95%+** | **152** | **0.94** | **20×** | **90%** |
 
 <br/>
 
