@@ -1,4 +1,7 @@
-<svg width="860" height="300" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img">
+python3 - << 'PYEOF'
+content = '''<div align="center">
+
+<svg width="100%" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img">
   <title>Electric Meter Detection System</title>
   <desc>AI-powered automated meter detection using YOLOv5 — 95% precision, 152 FPS, 0.94 mAP</desc>
   <defs>
@@ -13,27 +16,27 @@
       <stop offset="100%" stop-color="#38bdf8"/>
     </linearGradient>
     <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0a0a14" stop-opacity="1"/>
+      <stop offset="0%" stop-color="#0a0a14"/>
       <stop offset="30%" stop-color="#6366f1" stop-opacity="0.7"/>
       <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#0a0a14" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#0a0a14"/>
     </linearGradient>
     <linearGradient id="statBar" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#a5b4fc" stop-opacity="0.09"/>
       <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.04"/>
     </linearGradient>
-    <linearGradient id="orb1g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+    <radialGradient id="orb1g" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#6366f1" stop-opacity="0.18"/>
       <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="orb2g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+    </radialGradient>
+    <radialGradient id="orb2g" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.16"/>
       <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="orb3g" cx="50%" cy="50%" r="50%" fx="50%" fy="50%" gradientUnits="objectBoundingBox">
+    </radialGradient>
+    <radialGradient id="orb3g" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.12"/>
       <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
-    </linearGradient>
+    </radialGradient>
     <clipPath id="clip"><rect width="860" height="300" rx="14"/></clipPath>
   </defs>
 
@@ -63,7 +66,7 @@
     <ellipse cx="790" cy="250" rx="180" ry="140" fill="url(#orb2g)"/>
     <ellipse cx="480" cy="145" rx="140" ry="110" fill="url(#orb3g)"/>
 
-    <!-- Detection boxes (right) -->
+    <!-- Detection boxes -->
     <rect x="706" y="46" width="54" height="40" rx="2" fill="none" stroke="#06b6d4" stroke-width="1.2" stroke-opacity="0.55"/>
     <text x="708" y="42" font-family="monospace" font-size="8" fill="#06b6d4" fill-opacity="0.75">meter 0.96</text>
     <rect x="730" y="108" width="46" height="33" rx="2" fill="none" stroke="#06b6d4" stroke-width="1.1" stroke-opacity="0.4"/>
@@ -87,11 +90,11 @@
     <path d="M18 270 L18 286 L34 286" fill="none" stroke="#06b6d4" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
     <path d="M842 270 L842 286 L826 286" fill="none" stroke="#6366f1" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round"/>
 
-    <!-- Eyebrow label -->
+    <!-- Eyebrow -->
     <text x="390" y="50" font-family="monospace" font-size="10" fill="#6366f1" fill-opacity="0.88" text-anchor="middle" letter-spacing="3.5">INTERNSHIP PROJECT · TPCODL · 2026</text>
     <rect x="195" y="56" width="390" height="0.7" fill="url(#lineGrad)"/>
 
-    <!-- Main title -->
+    <!-- Title -->
     <text x="390" y="118" font-family="Arial Black, Arial, sans-serif" font-size="48" font-weight="900" fill="url(#titleGrad)" text-anchor="middle" letter-spacing="-2">Electric Meter</text>
     <text x="390" y="170" font-family="Arial Black, Arial, sans-serif" font-size="48" font-weight="900" fill="url(#titleGrad)" text-anchor="middle" letter-spacing="-2">Detection System</text>
 
@@ -105,7 +108,6 @@
     <line x1="409" y1="222" x2="409" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
     <line x1="526" y1="222" x2="526" y2="260" stroke="#6366f1" stroke-opacity="0.2" stroke-width="0.8"/>
 
-    <!-- Stat values -->
     <text x="116" y="240" font-family="monospace" font-size="21" font-weight="700" fill="#a5b4fc" text-anchor="middle">95%+</text>
     <text x="116" y="257" font-family="monospace" font-size="8.5" fill="#6366f1" fill-opacity="0.7" text-anchor="middle" letter-spacing="1.5">PRECISION</text>
 
@@ -124,14 +126,8 @@
   </g>
 </svg>
 
-<div align="center">
-
-<!-- PREMIUM BANNER -->
-<img width="100%" alt="Electric Meter Detection System — AI-powered YOLOv5 pipeline" src="./assets/banner.svg"/>
-
 <br/>
 
-<!-- BADGES ROW 1 -->
 <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
 <img src="https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
 <img src="https://img.shields.io/badge/YOLOv5-v7.0.13-00FFFF?style=for-the-badge&logo=github&logoColor=black"/>
@@ -140,9 +136,8 @@
 
 <br/><br/>
 
-<!-- BADGES ROW 2 -->
-<img src="https://img.shields.io/badge/Accuracy-95%25+-success?style=flat-square&logo=checkmarx&logoColor=white"/>
-<img src="https://img.shields.io/badge/Speed-152%20FPS-blueviolet?style=flat-square&logo=speedtest&logoColor=white"/>
+<img src="https://img.shields.io/badge/Precision-95%25+-success?style=flat-square"/>
+<img src="https://img.shields.io/badge/Speed-152%20FPS-blueviolet?style=flat-square"/>
 <img src="https://img.shields.io/badge/mAP@50-0.94-orange?style=flat-square"/>
 <img src="https://img.shields.io/badge/Model%20Size-14%20MB-blue?style=flat-square"/>
 <img src="https://img.shields.io/badge/Cost%20Reduction-90%25-green?style=flat-square"/>
@@ -150,17 +145,7 @@
 
 <br/><br/>
 
-<!-- HERO STATS -->
-```
-╔══════════════════════════════════════════════════════════════╗
-║  ⚡  AUTOMATED ELECTRIC METER DETECTION SYSTEM  ⚡           ║
-║  ─────────────────────────────────────────────────────────  ║
-║   95%+ Precision  │  152 FPS on GPU  │  90% Cost Reduction  ║
-║   0.94 mAP@50     │  14 MB Model     │  20× Faster          ║
-╚══════════════════════════════════════════════════════════════╝
-```
-
-**Developed by [Sumit Kumar Sahu](https://github.com/sumitkumarsahu) — B.Tech CS (AI & ML)**  
+**Developed by [Sumit Kumar Sahu](https://github.com/sumitkumarsahu) — B.Tech CS (AI & ML)**
 *Internship Project — TPCODL Field Operations Automation — 2026*
 
 </div>
@@ -368,7 +353,6 @@ meter_detection_project/
 │
 ├── 📂 uploads/                     ← Images uploaded via /api/detect
 ├── 📂 upload_videos/               ← Videos uploaded via /upload_video
-│
 ├── 📂 yolov5/                      ← YOLOv5 submodule / library
 │
 ├── run_step_1.py                   ← Frame extraction runner
@@ -411,7 +395,7 @@ cd meter-detection-project
 python -m venv venv
 
 # Windows
-venv\Scripts\activate
+venv\\Scripts\\activate
 
 # Linux / macOS
 source venv/bin/activate
@@ -547,7 +531,7 @@ MAX_FILE_SIZE_MB=50
 **`POST /detect`** — Upload an image, get back detections.
 
 ```bash
-curl -X POST http://localhost:5000/detect \
+curl -X POST http://localhost:5000/detect \\
      -F "file=@your_image.jpg"
 ```
 
@@ -569,7 +553,7 @@ curl -X POST http://localhost:5000/detect \
 | Feature | Description |
 |---------|-------------|
 | 🔐 Login / Signup | User authentication page |
-| 📤 Image Upload | Drag & drop or browse image files |
+| 📤 Image Upload | Drag and drop or browse image files |
 | 🎚️ Confidence Control | Adjustable confidence threshold slider |
 | 🖼️ Live Detection | Annotated output with bounding boxes |
 | 📋 Detection History | Last 50 detection results with timestamps |
@@ -612,10 +596,10 @@ curl -X POST http://localhost:5000/detect \
 ```
 BEFORE  ──────────────────────────────────  AFTER
 ─────────────────────────────────────────────────
-⏱  Time/Building   40+ hours    →    2 hours    (95% ↓)
-💰  Cost/Inspect  ₹25,000       →   ₹2,000      (90% ↓)
-👁  Miss Rate      5–10%        →   < 5%        (2× better)
-📊  Accuracy       ~90%         →   95%+        (+5%)
+⏱  Time/Building   40+ hours    →    2 hours    (95% reduction)
+💰  Cost/Inspect  Rs.25,000     →   Rs.2,000    (90% savings)
+👁  Miss Rate      5–10%        →   < 5%        (2x fewer misses)
+📊  Accuracy       ~90%         →   95%+        (+5% gain)
 📋  Reports        Manual paper →   Auto JSON   (100% digital)
 🔁  Scalability    1 team       →   Unlimited   (fully parallel)
 ```
@@ -628,11 +612,11 @@ BEFORE  ────────────────────────
 
 | Challenge | Solution Applied |
 |-----------|-----------------|
-| 🔴 CUDA Out-of-Memory (OOM) during training | Reduced batch size from 16 → 8 |
-| 🔴 Multiple annotation class IDs from different tools | `fix_labels.py` — normalizes all class IDs to `0` |
+| 🔴 CUDA Out-of-Memory during training | Reduced batch size from 16 to 8 |
+| 🔴 Multiple annotation class IDs from different tools | `fix_labels.py` normalizes all class IDs to `0` |
 | 🔴 Model overfitting on small dataset (1000 images) | Early stopping (patience=20) + SGD + weight decay |
 | 🔴 PyTorch import conflicts at startup | Moved `import torch` to top of all entry scripts |
-| 🔴 Annotation bottleneck (manual labeling) | Supplemented LabelImg with Roboflow for speed |
+| 🔴 Annotation bottleneck with manual labeling | Supplemented LabelImg with Roboflow for speed |
 
 ---
 
@@ -680,15 +664,18 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 <div align="center">
 
----
-
 **Built with ❤️ by Sumit Kumar Sahu**
 
 *B.Tech Computer Science (AI & ML) | Internship Project 2026*
 
 *Developed for TPCODL Field Operations Automation*
 
----
-
-
 </div>
+'''
+
+with open("/mnt/user-data/outputs/README.md", "w", encoding="utf-8") as f:
+    f.write(content)
+
+lines = content.count("\n")
+print(f"Written: {lines} lines, {len(content)} bytes")
+PYEOF
