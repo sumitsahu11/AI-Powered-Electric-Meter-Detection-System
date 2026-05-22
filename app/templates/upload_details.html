@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Details - Meter Detection{% endblock %}
+
+{% block content %}
+<h1>Upload Details</h1>
+
+<div class="details-header">
+    <p><strong>Upload ID:</strong> <code>{{ upload_id }}</code></p>
+    <a href="/history" class="btn btn-secondary">Back to History</a>
+</div>
+
+<!-- Detection Results Table -->
+<h2>Detection Results ({{ detections|length }} images)</h2>
+<div class="table-container">
+    <table class="details-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Filename</th>
+                <th>Confidence</th>
+                <th>Result</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detection in detections %}
+            <tr class="{% if detection.is_good %}row-good{% else %}row-bad{% endif %}">
+                <td>{{ loop.index }}</td>
+                <td>{{ detection.filename }}</td>
+                <td>
+                    <strong>{{ "%.2f"|format(detection.confidence * 100) }}%</strong>
+                </td>
+                <td>
+                    {% if detection.is_good %}
+                    <span class="status-good">✅ GOOD</span>
+                    {% else %}
+                    <span class="status-bad">❌ BAD</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if detection.is_good %}
+                    <a href="/image/good/{{ detection.filename }}" target="_blank" class="btn btn-sm btn-primary">
+                        View
+                    </a>
+                    {% else %}
+                    <a href="/image/bad/{{ detection.filename }}" target="_blank" class="btn btn-sm btn-danger">
+                        View
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not detections %}
+    <p style="text-align: center; padding: 2rem;">No detections found for this upload.</p>
+    {% endif %}
+</div>
+
+<!-- Summary -->
+<div class="summary-section">
+    <h3>Summary</h3>
+    <div class="summary-grid">
+        <div class="summary-item good">
+            <h4>Good Detections</h4>
+            <p class="count">{{ detections|selectattr('is_good', 'equalto', 1)|list|length }}</p>
+        </div>
+        <div class="summary-item bad">
+            <h4>Bad Detections</h4>
+            <p class="count">{{ detections|selectattr('is_good', 'equalto', 0)|list|length }}</p>
+        </div>
+        <div class="summary-item total">
+            <h4>Total Images</h4>
+            <p class="count">{{ detections|length }}</p>
+        </div>
+        {% set total = detections|length %}
+        {% set good = detections|selectattr('is_good', 'equalto', 1)|list|length %}
+        <div class="summary-item accuracy">
+            <h4>Accuracy Rate</h4>
+            <p class="count">
+                {% if total > 0 %}
+                    {{ "%.1f"|format(good / total * 100) }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+.details-header {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.details-header code {
+    background: #f0f0f0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.details-table thead {
+    background-color: #2196F3;
+    color: white;
+}
+
+.details-table th,
+.details-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.details-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.details-table .row-good {
+    border-left: 4px solid #4CAF50;
+}
+
+.details-table .row-bad {
+    border-left: 4px solid #f44336;
+}
+
+.status-good {
+    background: #4CAF50;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.status-bad {
+    background: #f44336;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.summary-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.summary-section h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.summary-item {
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #2196F3;
+}
+
+.summary-item.good {
+    border-left-color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.summary-item.bad {
+    border-left-color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.summary-item.total {
+    border-left-color: #FF9800;
+    background: rgba(255, 152, 0, 0.1);
+}
+
+.summary-item.accuracy {
+    border-left-color: #2196F3;
+    background: rgba(33, 150, 243, 0.1);
+}
+
+.summary-item h4 {
+    margin: 0 0 0.5rem 0;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.summary-item .count {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #da190b;
+}
+
+@media (max-width: 768px) {
+    .details-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .details-table {
+        font-size: 0.8rem;
+    }
+    
+    .details-table th,
+    .details-table td {
+        padding: 0.5rem;
+    }
+}
+</style>
+{% endblock %}

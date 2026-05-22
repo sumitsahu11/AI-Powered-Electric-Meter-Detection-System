@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'Signup' if mode == 'signup' else 'Login' }} - Meter Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+        }
+        .container {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 16px;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .switch {
+            margin-top: 12px;
+            text-align: center;
+        }
+        .flash {
+            color: red;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>{{ 'Signup' if mode == 'signup' else 'Login' }}</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for msg in messages %}
+            <div>{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if mode == 'signup' %}
+    <form method="POST" action="{{ url_for('signup') }}">
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Create Account</button>
+    </form>
+    <div class="switch">
+        Already have an account? <a href="{{ url_for('login') }}">Login</a>
+    </div>
+    {% else %}
+    <form method="POST" action="{{ url_for('login') }}">
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+    <div class="switch">
+        New user? <a href="{{ url_for('signup') }}">Create an account</a>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

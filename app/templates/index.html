@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meter Detection System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(0, 0, 0, 0.35), transparent 55%),
+                linear-gradient(135deg, #1e293b 0%, #020617 45%, #1e293b 100%);
+            min-height: 100vh;
+            color: var(--gray-100);
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.95));
+            padding: 28px 36px;
+            border-radius: 18px;
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.75),
+                0 0 0 1px rgba(148, 163, 184, 0.16);
+            margin-bottom: 26px;
+            text-align: center;
+            color: #e5e7eb;
+            backdrop-filter: blur(14px);
+        }
+
+        .header h1 {
+            color: #e5e7eb;
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .header h1 .icon {
+            font-size: 40px;
+        }
+
+        .header p {
+            color: #cbd5f5;
+            font-size: 16px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: var(--success-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .status-badge.offline {
+            background: var(--danger-color);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-section {
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(15, 23, 42, 0.98));
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow:
+                0 16px 40px rgba(15, 23, 42, 0.8),
+                0 0 0 1px rgba(148, 163, 184, 0.22);
+            backdrop-filter: blur(18px);
+        }
+
+        .upload-section h2 {
+            color: #e5e7eb;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(148, 163, 184, 0.7);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: radial-gradient(circle at top, rgba(30, 64, 175, 0.12), rgba(15, 23, 42, 0.96));
+            box-shadow:
+                0 10px 30px rgba(15, 23, 42, 0.8),
+                inset 0 0 0 1px rgba(148, 163, 184, 0.35);
+        }
+
+        .upload-area:hover {
+            border-color: rgba(96, 165, 250, 0.95);
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), rgba(15, 23, 42, 0.96));
+            transform: translateY(-2px) scale(1.01);
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(96, 165, 250, 0.8);
+        }
+
+        .upload-area.dragover {
+            border-color: rgba(96, 165, 250, 0.95);
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), rgba(15, 23, 42, 0.96));
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .upload-text {
+            color: #e5e7eb;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .upload-subtext {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .selected-files {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .file-item {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #e5e7eb;
+            box-shadow:
+                0 8px 18px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.55);
+        }
+
+        .file-item-name {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-item-remove {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .file-item-remove:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .settings {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 12px;
+            box-shadow:
+                0 10px 25px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.35);
+        }
+
+        .setting-group {
+            margin-bottom: 12px;
+        }
+
+        .setting-label {
+            display: block;
+            color: #e5e7eb;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .threshold-input {
+            width: 100%;
+            padding: 0;
+            margin-top: 4px;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+
+        .threshold-input:disabled {
+            opacity: 0.5;
+        }
+
+        .threshold-input::-webkit-slider-runnable-track {
+            height: 6px;
+            background: linear-gradient(90deg, #60a5fa 0%, #1d4ed8 100%);
+            border-radius: 999px;
+        }
+
+        .threshold-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #f9fafb;
+            border: 2px solid #1d4ed8;
+            margin-top: -6px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.7);
+        }
+
+        .threshold-display {
+            color: #bfdbfe;
+            font-weight: 600;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: radial-gradient(circle at top left, #60a5fa, #2563eb);
+            color: white;
+            box-shadow:
+                0 10px 25px rgba(37, 99, 235, 0.75),
+                0 0 0 1px rgba(191, 219, 254, 0.5);
+            transform: translateY(0);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: radial-gradient(circle at top left, #93c5fd, #1d4ed8);
+            box-shadow:
+                0 16px 40px rgba(37, 99, 235, 0.95),
+                0 0 0 1px rgba(219, 234, 254, 0.95);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .btn-secondary {
+            background: radial-gradient(circle at top left, #e5e7eb, #9ca3af);
+            color: #0f172a;
+            box-shadow:
+                0 8px 18px rgba(15, 23, 42, 0.5),
+                0 0 0 1px rgba(148, 163, 184, 0.7);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: radial-gradient(circle at top left, #f3f4f6, #6b7280);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .results-section {
+            background: radial-gradient(circle at top right, rgba(248, 250, 252, 0.12), rgba(15, 23, 42, 0.98));
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow:
+                0 16px 40px rgba(15, 23, 42, 0.8),
+                0 0 0 1px rgba(148, 163, 184, 0.22);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(18px);
+        }
+
+        .results-section h2 {
+            color: #e5e7eb;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .result-card {
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            background: rgba(15, 23, 42, 0.96);
+            box-shadow:
+                0 10px 26px rgba(15, 23, 42, 0.9);
+        }
+
+        .result-card:hover {
+            box-shadow:
+                0 16px 40px rgba(15, 23, 42, 0.98),
+                0 0 0 1px rgba(96, 165, 250, 0.8);
+            border-color: rgba(96, 165, 250, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .result-header {
+            background: rgba(15, 23, 42, 0.98);
+            padding: 16px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.45);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-filename {
+            font-weight: 600;
+            color: #e5e7eb;
+            font-size: 15px;
+        }
+
+        .result-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .result-status.meter {
+            background: var(--success-color);
+        }
+
+        .result-status.not-meter {
+            background: var(--danger-color);
+        }
+
+        .result-status.no-detection {
+            background: var(--gray-400);
+        }
+
+        .result-body {
+            padding: 16px;
+        }
+
+        .detection-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .stat-item {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow:
+                0 6px 14px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.5);
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #bfdbfe;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .detections-list {
+            margin-top: 12px;
+        }
+
+        .detection-item {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            box-shadow:
+                0 8px 18px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.5);
+        }
+
+        .detection-info {
+            flex: 1;
+            color: #e5e7eb;
+        }
+
+        .detection-confidence {
+            font-weight: 600;
+            color: #bfdbfe;
+            margin-bottom: 2px;
+        }
+
+        .detection-label {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .confidence-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .confidence-badge.high {
+            background: var(--success-color);
+        }
+
+        .confidence-badge.low {
+            background: var(--danger-color);
+        }
+
+        .preview-container {
+            margin-top: 12px;
+            max-height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: radial-gradient(circle at center, #020617, #0f172a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 220px;
+            box-shadow:
+                0 14px 32px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(30, 64, 175, 0.8);
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+        }
+
+        .summary-section {
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
+            padding: 26px;
+            border-radius: 18px;
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.85),
+                0 0 0 1px rgba(148, 163, 184, 0.25);
+            margin-bottom: 26px;
+            backdrop-filter: blur(18px);
+        }
+
+        .summary-section h2 {
+            color: #e5e7eb;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow:
+                0 14px 32px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(191, 219, 254, 0.6);
+        }
+
+        .summary-card.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .summary-card.danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .summary-card.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .summary-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray-300);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #e5e7eb;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: rgba(15, 23, 42, 0.98);
+            padding: 16px 20px;
+            border-radius: 10px;
+            box-shadow:
+                0 16px 40px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(148, 163, 184, 0.65);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+            color: #e5e7eb;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .toast-message {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #e5e7eb;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #bfdbfe;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meter Detection System</title>
+    <!-- keep your existing CSS/JS links here if any -->
+</head>
+<body>
+
+<div style="display: flex; justify-content: flex-end; gap: 10px; margin: 10px;">
+        <span>Logged in as: {{ user_email }}</span>
+        <!-- History Download button -->
+        <form action="{{ url_for('download_history') }}" method="GET" style="display:inline;">
+            <button type="submit">History (Download)</button>
+        </form>
+        <!-- Logout button -->
+        <form action="{{ url_for('logout') }}" method="GET" style="display:inline;">
+            <button type="submit">Logout</button>
+        </form>
+</div>
+
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="icon">📊</span>
+                Meter Detection System
+            </h1>
+            <p>Detect and analyze meter images with AI-powered accuracy</p>
+            <div class="status-badge" id="statusBadge">Connecting...</div>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <h2>
+                    <span>📤</span>
+                    Upload Images
+                </h2>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">Click to browse or drag & drop</div>
+                    <div class="upload-subtext">PNG, JPG, JPEG, GIF, BMP (Max 50MB)</div>
+                </div>
+
+                <input type="file" id="fileInput" multiple accept=".png,.jpg,.jpeg,.gif,.bmp" />
+
+                <div class="selected-files" id="selectedFiles"></div>
+
+                <div class="settings">
+                    <div class="setting-group">
+                        <label class="setting-label">
+                            Confidence Threshold (Meter Detection)
+                        </label>
+                        <input
+                            type="range"
+                            id="confThreshold"
+                            class="threshold-input"
+                            min="0"
+                            max="100"
+                            value="20"
+                            step="1"
+                            disabled
+                        />
+                        <div class="threshold-display">
+                            Threshold: <span id="thresholdValue">20</span>%
+                        </div>
+                        <div style="font-size: 12px; color: #9ca3af; margin-top: 8px;">
+                            Objects with confidence ≥ 20% = Meter | &lt; 20% = Not Meter
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="detectBtn" disabled>
+                        <span>⚡</span>
+                        Detect Meters
+                    </button>
+                    <button class="btn btn-secondary" id="clearBtn">
+                        <span>🗑️</span>
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>
+                    <span>📊</span>
+                    Detection Results
+                </h2>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <p>No results yet</p>
+                    <p style="font-size: 12px;">Upload images and click "Detect Meters" to see results</p>
+                </div>
+
+                <div id="resultsContainer" class="results-container" style="display: none;"></div>
+
+                <div id="loadingState" class="loading">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Analyzing images...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Upload video (optional) section -->
+        <hr>
+        <h3>Upload video (optional)</h3>
+        <form action="{{ url_for('upload_video') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="video_file" accept="video/*" required>
+            <button type="submit">Upload Video</button>
+        </form>
+        <p style="font-size: 12px; color: #555;">
+            You can upload any video format and size. It will be stored securely for developer review.
+        </p>
+
+        <div class="summary-section" id="summarySection" style="display: none;">
+            <h2>📈 Detection Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-number" id="totalImages">0</div>
+                    <div class="summary-label">Total Images</div>
+                </div>
+                <div class="summary-card success">
+                    <div class="summary-number" id="metersCount">0</div>
+                    <div class="summary-label">Meters Detected</div>
+                </div>
+                <div class="summary-card danger">
+                    <div class="summary-number" id="nonMetersCount">0</div>
+                    <div class="summary-label">Not Meters</div>
+                </div>
+                <div class="summary-card warning">
+                    <div class="summary-number" id="totalDetections">0</div>
+                    <div class="summary-label">Total Detections</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section" id="historySection" style="display: none; margin-top: 10px;">
+            <h2>📚 Detection History (Last 50)</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-size: 13px; color: #9ca3af;">
+                    Total rows: <span id="historyTotalRows">0</span> |
+                    Total Meters: <span id="historyTotalMeters">0</span> |
+                    Total Non-Meters: <span id="historyTotalNonMeters">0</span>
+                </div>
+                <button class="btn btn-secondary" id="resetHistoryBtn" style="flex: 0 0 auto; padding: 6px 12px; font-size: 13px;">
+                    🧹 Reset History
+                </button>
+            </div>
+            <div id="historyTableContainer" style="max-height: 260px; overflow-y: auto; border-radius: 10px; background: rgba(15,23,42,0.9); box-shadow: 0 10px 26px rgba(15,23,42,0.95);">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px; color: #e5e7eb;">
+                    <thead>
+                        <tr style="background: rgba(15,23,42,0.98);">
+                            <th style="padding: 8px 10px; text-align: left;">Time</th>
+                            <th style="padding: 8px 10px; text-align: left;">File</th>
+                            <th style="padding: 8px 10px; text-align: center;">Has Meter</th>
+                            <th style="padding: 8px 10px; text-align: center;">Meters</th>
+                            <th style="padding: 8px 10px; text-align: center;">Non-Meters</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- rows filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🚀 Powered by YOLOv5 | AI-powered meter detection system</p>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const app = {
+            apiURL: 'http://localhost:5000/api',
+            selectedFiles: [],
+            results: [],
+            config: {}
+        };
+
+        const elements = {
+            uploadArea: document.getElementById('uploadArea'),
+            fileInput: document.getElementById('fileInput'),
+            selectedFilesDiv: document.getElementById('selectedFiles'),
+            detectBtn: document.getElementById('detectBtn'),
+            clearBtn: document.getElementById('clearBtn'),
+            resultsContainer: document.getElementById('resultsContainer'),
+            emptyState: document.getElementById('emptyState'),
+            loadingState: document.getElementById('loadingState'),
+            summarySection: document.getElementById('summarySection'),
+            toastContainer: document.getElementById('toastContainer'),
+            statusBadge: document.getElementById('statusBadge'),
+            historySection: document.getElementById('historySection'),
+            resetHistoryBtn: document.getElementById('resetHistoryBtn')
+        };
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span class="toast-message">${message}</span>
+                <button class="toast-close">✕</button>
+            `;
+
+            elements.toastContainer.appendChild(toast);
+            const closeBtn = toast.querySelector('.toast-close');
+            closeBtn.onclick = () => toast.remove();
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 4000);
+        }
+
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${app.apiURL}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    updateStatusBadge(data.model_loaded);
+                    return true;
+                } else {
+                    updateStatusBadge(false);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Health check failed:', error);
+                updateStatusBadge(false);
+                return false;
+            }
+        }
+
+        function updateStatusBadge(isOnline) {
+            if (isOnline) {
+                elements.statusBadge.textContent = '✓ System Online';
+                elements.statusBadge.classList.remove('offline');
+                elements.detectBtn.disabled = app.selectedFiles.length === 0;
+            } else {
+                elements.statusBadge.textContent = '✗ System Offline';
+                elements.statusBadge.classList.add('offline');
+                elements.detectBtn.disabled = true;
+            }
+        }
+
+        async function detectMeters() {
+            if (app.selectedFiles.length === 0) {
+                showToast('Please select at least one image', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            app.selectedFiles.forEach(file => {
+                formData.append('images', file);
+            });
+
+            elements.loadingState.classList.add('active');
+            elements.resultsContainer.style.display = 'none';
+            elements.emptyState.style.display = 'none';
+            elements.detectBtn.disabled = true;
+
+            try {
+                const response = await fetch(`${app.apiURL}/detect`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Detection failed');
+                }
+
+                const result = await response.json();
+                app.results = result.results;
+
+                displayResults(result);
+                displaySummary(result.summary);
+                showToast(`Detection complete! Processed ${result.total_images} images`, 'success');
+                loadHistory();
+
+            } catch (error) {
+                console.error('Detection error:', error);
+                showToast(`Error: ${error.message}`, 'error');
+            } finally {
+                elements.loadingState.classList.remove('active');
+                elements.detectBtn.disabled = false;
+            }
+        }
+
+        function displayResults(result) {
+            elements.resultsContainer.innerHTML = '';
+            elements.emptyState.style.display = 'none';
+            elements.resultsContainer.style.display = 'flex';
+
+            result.results.forEach((resultItem) => {
+                if (!resultItem.success) {
+                    const errorCard = document.createElement('div');
+                    errorCard.className = 'result-card';
+                    errorCard.innerHTML = `
+                        <div class="result-header">
+                            <span class="result-filename">${resultItem.filename}</span>
+                            <span class="result-status no-detection">Error</span>
+                        </div>
+                        <div class="result-body">
+                            <div style="color: var(--danger-color); font-size: 14px;">
+                                ${resultItem.error || 'Unknown error'}
+                            </div>
+                        </div>
+                    `;
+                    elements.resultsContainer.appendChild(errorCard);
+                    return;
+                }
+
+                const card = document.createElement('div');
+                card.className = 'result-card';
+
+                const hasMeter = resultItem.has_meter;
+                const statusClass = hasMeter ? 'meter' : (resultItem.annotation_count === 0 ? 'no-detection' : 'not-meter');
+                const statusText = hasMeter ? 'Meter Detected' : (resultItem.annotation_count === 0 ? 'No Detection' : 'Not Meter');
+
+                const detectionsHTML = resultItem.detections.length > 0 ? `
+                    <div class="detections-list">
+                        ${resultItem.detections.map((det, idx) => `
+                            <div class="detection-item">
+                                <div class="detection-info">
+                                    <div class="detection-confidence">
+                                        Detection #${idx + 1}
+                                    </div>
+                                    <div class="detection-label">
+                                        ${det.is_meter ? '✓ Classified as Meter' : '✗ Not a Meter'}
+                                    </div>
+                                </div>
+                                <span class="confidence-badge ${det.confidence >= 20 ? 'high' : 'low'}">
+                                    ${det.confidence.toFixed(1)}%
+                                </span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : '<div style="color: #9ca3af; font-size: 14px; text-align: center; padding: 20px;">No objects detected</div>';
+
+                const previewHTML = resultItem.annotated_image ? `
+                    <div class="preview-container">
+                        <img src="data:image/jpeg;base64,${resultItem.annotated_image}" class="preview-image" />
+                    </div>
+                ` : '';
+
+                card.innerHTML = `
+                    <div class="result-header">
+                        <span class="result-filename">${resultItem.filename}</span>
+                        <span class="result-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="result-body">
+                        <div class="detection-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">${resultItem.annotation_count}</div>
+                                <div class="stat-label">Objects Found</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${resultItem.detections.filter(d => d.is_meter).length}</div>
+                                <div class="stat-label">Meters</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">${resultItem.detections.filter(d => !d.is_meter).length}</div>
+                                <div class="stat-label">Non-Meters</div>
+                            </div>
+                        </div>
+                        ${detectionsHTML}
+                        ${previewHTML}
+                    </div>
+                `;
+
+                elements.resultsContainer.appendChild(card);
+            });
+        }
+
+        function displaySummary(summary) {
+            document.getElementById('totalImages').textContent = app.selectedFiles.length;
+            document.getElementById('metersCount').textContent = summary.meters_detected;
+            document.getElementById('nonMetersCount').textContent = summary.non_meters;
+            document.getElementById('totalDetections').textContent = summary.total_detections;
+            elements.summarySection.style.display = 'block';
+        }
+
+        async function loadHistory() {
+            try {
+                const response = await fetch(`${app.apiURL}/stats`);
+                if (!response.ok) {
+                    throw new Error('Failed to load history');
+                }
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to load history');
+                }
+
+                document.getElementById('historyTotalRows').textContent = data.total_rows;
+                document.getElementById('historyTotalMeters').textContent = data.total_meters;
+                document.getElementById('historyTotalNonMeters').textContent = data.total_non_meters;
+
+                const tbody = document.getElementById('historyTableBody');
+                tbody.innerHTML = '';
+
+                if (data.history.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="padding: 10px; text-align: center; color: #9ca3af;">
+                                No history yet
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    data.history.forEach(row => {
+                        const tr = document.createElement('tr');
+                        const ts = row.timestamp || '';
+                        const parts = ts.split('T');
+                        const datePart = parts[0] || '';
+                        const timePart = (parts[1] || '').slice(0, 8);
+                        tr.innerHTML = `
+                            <td style="padding: 6px 10px; border-top: 1px solid rgba(55,65,81,0.7);">${datePart} ${timePart}</td>
+                            <td style="padding: 6px 10px; border-top: 1px solid rgba(55,65,81,0.7);">${row.filename}</td>
+                            <td style="padding: 6px 10px; text-align: center; border-top: 1px solid rgba(55,65,81,0.7);">
+                                ${row.has_meter ? '✅' : '❌'}
+                            </td>
+                            <td style="padding: 6px 10px; text-align: center; border-top: 1px solid rgba(55,65,81,0.7);">
+                                ${row.meters_count}
+                            </td>
+                            <td style="padding: 6px 10px; text-align: center; border-top: 1px solid rgba(55,65,81,0.7);">
+                                ${row.non_meters_count}
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+                elements.historySection.style.display = 'block';
+            } catch (err) {
+                console.error('History load error:', err);
+                showToast('Failed to load history', 'error');
+            }
+        }
+
+        async function resetHistory() {
+            if (!confirm('Are you sure you want to clear all detection history?')) {
+                return;
+            }
+            try {
+                const response = await fetch(`${app.apiURL}/stats/reset`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || 'Failed to reset history');
+                }
+                showToast('History cleared', 'success');
+                loadHistory();
+            } catch (err) {
+                console.error('Reset history error:', err);
+                showToast('Failed to reset history', 'error');
+            }
+        }
+
+        function addFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!app.selectedFiles.find(f => f.name === file.name)) {
+                    app.selectedFiles.push(file);
+                }
+            });
+            updateFileDisplay();
+        }
+
+        function removeFile(filename) {
+            app.selectedFiles = app.selectedFiles.filter(f => f.name !== filename);
+            updateFileDisplay();
+        }
+
+        function updateFileDisplay() {
+            if (app.selectedFiles.length === 0) {
+                elements.selectedFilesDiv.innerHTML = '';
+                elements.detectBtn.disabled = true;
+                return;
+            }
+
+            elements.selectedFilesDiv.innerHTML = app.selectedFiles.map(file => `
+                <div class="file-item">
+                    <div class="file-item-name">
+                        <span>📄</span>
+                        ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)
+                    </div>
+                    <button class="file-item-remove" onclick="removeFile('${file.name}')">Remove</button>
+                </div>
+            `).join('');
+
+            elements.detectBtn.disabled = false;
+        }
+
+        function clearAll() {
+            app.selectedFiles = [];
+            app.results = [];
+            elements.selectedFilesDiv.innerHTML = '';
+            elements.resultsContainer.innerHTML = '';
+            elements.resultsContainer.style.display = 'none';
+            elements.emptyState.style.display = 'block';
+            elements.summarySection.style.display = 'none';
+            elements.detectBtn.disabled = true;
+            showToast('Cleared all files and results', 'info');
+        }
+
+        elements.uploadArea.addEventListener('click', () => elements.fileInput.click());
+
+        elements.uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            elements.uploadArea.classList.add('dragover');
+        });
+
+        elements.uploadArea.addEventListener('dragleave', () => {
+            elements.uploadArea.classList.remove('dragover');
+        });
+
+        elements.uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            elements.uploadArea.classList.remove('dragover');
+            addFiles(e.dataTransfer.files);
+        });
+
+        elements.fileInput.addEventListener('change', (e) => {
+            addFiles(e.target.files);
+        });
+
+        elements.detectBtn.addEventListener('click', detectMeters);
+        elements.clearBtn.addEventListener('click', clearAll);
+        elements.resetHistoryBtn.addEventListener('click', resetHistory);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkHealth();
+            setInterval(checkHealth, 5000);
+            loadHistory();
+        });
+    </script>
+</body>
+</html>
+

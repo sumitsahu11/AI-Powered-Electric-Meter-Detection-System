@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Upload - Meter Detection{% endblock %}
+
+{% block content %}
+<h1>Upload Meter Images</h1>
+
+<div class="upload-area" id="uploadArea">
+    <div class="upload-icon">📁</div>
+    <h2>Drag & Drop Images Here</h2>
+    <p>Or click to select files</p>
+    <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+</div>
+
+<div id="uploadProgress" style="display:none;">
+    <h3>Uploading...</h3>
+    <progress id="progressBar" max="100" value="0"></progress>
+    <p id="progressText">0%</p>
+</div>
+
+<div id="results" style="display:none;">
+    <h2>Upload Complete!</h2>
+    <div class="stats">
+        <div class="stat">
+            <h3 id="goodCount">0</h3>
+            <p>Good Detections ✅</p>
+        </div>
+        <div class="stat">
+            <h3 id="badCount">0</h3>
+            <p>Bad Detections ❌</p>
+        </div>
+        <div class="stat">
+            <h3 id="totalCount">0</h3>
+            <p>Total Processed</p>
+        </div>
+    </div>
+    <a href="/results" class="btn btn-primary">View Results</a>
+    <button onclick="location.reload()" class="btn btn-secondary">Upload More</button>
+</div>
+
+<script>
+document.getElementById('uploadArea').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});
+
+document.getElementById('uploadArea').addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.style.backgroundColor = '#f0f0f0';
+});
+
+document.getElementById('uploadArea').addEventListener('dragleave', function() {
+    this.style.backgroundColor = 'white';
+});
+
+document.getElementById('uploadArea').addEventListener('drop', function(e) {
+    e.preventDefault();
+    document.getElementById('fileInput').files = e.dataTransfer.files;
+    uploadFiles();
+});
+
+document.getElementById('fileInput').addEventListener('change', uploadFiles);
+
+function uploadFiles() {
+    const files = document.getElementById('fileInput').files;
+    const formData = new FormData();
+    
+    for (let file of files) {
+        formData.append('files', file);
+    }
+    
+    document.getElementById('uploadArea').style.display = 'none';
+    document.getElementById('uploadProgress').style.display = 'block';
+    
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('goodCount').innerText = data.good.length;
+        document.getElementById('badCount').innerText = data.bad.length;
+        document.getElementById('totalCount').innerText = data.total;
+        
+        document.getElementById('uploadProgress').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+    });
+}
+</script>
+{% endblock %}

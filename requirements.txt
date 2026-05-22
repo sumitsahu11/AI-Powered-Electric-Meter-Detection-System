@@ -1,0 +1,18 @@
+# Core Flask
+flask==2.3.3
+flask-cors==4.0.0
+werkzeug==2.3.7
+
+# PyTorch and Computer Vision
+torch==2.0.1
+torchvision==0.15.2
+opencv-python==4.8.1.78
+pillow==10.0.1
+numpy==1.24.3
+
+# YOLOv5
+yolov5==7.0.13
+
+# Additional for production (optional)
+python-dotenv==1.0.0
+gunicorn==21.2.0

@@ -1,0 +1,33 @@
+{
+  "project_name": "Meter Detection",
+  "version": "1.0.0",
+  "paths": {
+    "videos": "data/videos",
+    "frames_extracted": "data/frames/extracted",
+    "frames_annotated": "data/frames/annotated",
+    "dataset": "data/dataset",
+    "models": "models",
+    "results": "results"
+  },
+  "extraction": {
+    "frame_interval": 5,
+    "format": "jpg"
+  },
+  "training": {
+    "img_size": 640,
+    "batch_size": 16,
+    "epochs": 50,
+    "device": 0,
+    "patience": 20
+  },
+  "inference": {
+    "conf_threshold": 0.5,
+    "iou_threshold": 0.45
+  },
+  "database": {
+    "enabled": false,
+    "type": "oracle",
+    "host": "localhost",
+    "port": 1521
+  }
+}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Meter Detection{% endblock %}
+
+{% block content %}
+<h1>Detection Results</h1>
+
+<div class="tabs">
+    <button class="tab-button active" data-tab="good">✅ Good Detections (≥20%)</button>
+    <button class="tab-button" data-tab="bad">❌ Bad Detections (<00%)</button>
+</div>
+
+<div id="bad" class="tab-content">
+    <h2>Bad Detections (<20%)</h2>
+    <div class="image-grid">
+        {% for file in bad_files %}
+        <div class="image-card">
+            <a href="/image/bad/{{ file }}" target="_blank">
+                <img src="/image/bad/{{ file }}" alt="{{ file }}">
+            </a>
+            <p>{{ file }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    ...
+</div>
+
+<div id="bad" class="tab-content">
+    <h2>Bad Detections</h2>
+    <div class="image-grid">
+        {% for file in bad_files %}
+        <div class="image-card">
+            <img src="/image/bad/{{ file }}" alt="{{ file }}">
+            <p>{{ file }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if not bad_files %}
+    <p>No bad detections yet.</p>
+    {% endif %}
+</div>
+
+<script>
+document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+    });
+});
+</script>
+{% endblock %}

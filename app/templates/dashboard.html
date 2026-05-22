@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Meter Detection{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="stat-card good">
+        <h3>{{ stats.good }}</h3>
+        <p>Good Detections</p>
+    </div>
+    <div class="stat-card bad">
+        <h3>{{ stats.bad }}</h3>
+        <p>Bad Detections</p>
+    </div>
+    <div class="stat-card total">
+        <h3>{{ stats.total }}</h3>
+        <p>Total Images</p>
+    </div>
+    <div class="stat-card accuracy">
+        <h3>{{ "%.1f"|format(stats.accuracy) }}%</h3>
+        <p>Accuracy Rate</p>
+    </div>
+</div>
+
+<div class="chart">
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Good', 'Bad'],
+        datasets: [{
+            data: [{{ stats.good }}, {{ stats.bad }}],
+            backgroundColor: ['#4CAF50', '#f44336'],
+            borderColor: ['#45a049', '#da190b'],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+{% endblock %}
