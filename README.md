@@ -1,575 +1,569 @@
 <div align="center">
-<img src="assets/banner.svg" width="100%" alt="Electric Meter Detection System"/>
+
+<!-- ANIMATED BANNER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=venom&color=0:0f0c29,50:302b63,100:24243e&height=300&section=header&text=⚡%20Electric%20Meter%20Detection&fontSize=42&fontColor=ffffff&animation=twinkling&fontAlignY=55&desc=AI-Powered%20Object%20Detection%20System%20using%20YOLOv5&descAlignY=72&descSize=18&descColor=a78bfa"/>
+
+<br/>
+
+<!-- BADGES ROW 1 -->
+<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
+<img src="https://img.shields.io/badge/YOLOv5-v7.0.13-00FFFF?style=for-the-badge&logo=github&logoColor=black"/>
+<img src="https://img.shields.io/badge/Flask-2.3.3-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+<img src="https://img.shields.io/badge/OpenCV-4.8.1-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white"/>
+
+<br/><br/>
+
+<!-- BADGES ROW 2 -->
+<img src="https://img.shields.io/badge/Accuracy-95%25+-success?style=flat-square&logo=checkmarx&logoColor=white"/>
+<img src="https://img.shields.io/badge/Speed-152%20FPS-blueviolet?style=flat-square&logo=speedtest&logoColor=white"/>
+<img src="https://img.shields.io/badge/mAP@50-0.94-orange?style=flat-square"/>
+<img src="https://img.shields.io/badge/Model%20Size-14%20MB-blue?style=flat-square"/>
+<img src="https://img.shields.io/badge/Cost%20Reduction-90%25-green?style=flat-square"/>
+<img src="https://img.shields.io/badge/License-MIT-red?style=flat-square"/>
+
+<br/><br/>
+
+<!-- HERO STATS -->
+```
+╔══════════════════════════════════════════════════════════════╗
+║  ⚡  AUTOMATED ELECTRIC METER DETECTION SYSTEM  ⚡           ║
+║  ─────────────────────────────────────────────────────────  ║
+║   95%+ Precision  │  152 FPS on GPU  │  90% Cost Reduction  ║
+║   0.94 mAP@50     │  14 MB Model     │  20× Faster          ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+**Developed by [Sumit Kumar Sahu](https://github.com/sumitkumarsahu) — B.Tech CS (AI & ML)**  
+*Internship Project — TPCODL Field Operations Automation — 2026*
+
 </div>
 
-<br>
+---
+
+## 📌 Table of Contents
+
+| # | Section |
+|---|---------|
+| 1 | [🧠 Project Overview](#-project-overview) |
+| 2 | [❗ Problem Statement](#-problem-statement) |
+| 3 | [💡 Proposed Solution](#-proposed-solution) |
+| 4 | [🏆 Key Results](#-key-results) |
+| 5 | [🛠️ Technology Stack](#️-technology-stack) |
+| 6 | [🏗️ System Architecture](#️-system-architecture) |
+| 7 | [📁 Project Structure](#-project-structure) |
+| 8 | [🚀 Getting Started](#-getting-started) |
+| 9 | [🔄 5-Step Pipeline](#-5-step-pipeline) |
+| 10 | [🌐 Flask REST API](#-flask-rest-api) |
+| 11 | [📊 Model Performance](#-model-performance) |
+| 12 | [📈 Business Impact](#-business-impact) |
+| 13 | [⚠️ Challenges & Solutions](#️-challenges--solutions) |
+| 14 | [🔮 Future Scope](#-future-scope) |
+| 15 | [🤝 Contributing](#-contributing) |
+| 16 | [📄 License](#-license) |
+
+---
+
+## 🧠 Project Overview
+
+> **An end-to-end AI pipeline that automatically detects electric meters in field-survey videos — deployed as a production REST API for TPCODL infrastructure integration.**
+
+This project was built as an internship deliverable for **TPCODL (Tata Power Central Odisha Distribution Limited)** to eliminate manual meter inspection. The system processes raw survey videos, extracts frames, trains a custom YOLOv5 deep learning model, and exposes a web interface + REST API for real-world deployment.
+
+The entire pipeline — from raw video to annotated detections — runs in under **2 hours**, compared to **40+ hours** of manual inspection per building zone.
+
+---
+
+## ❗ Problem Statement
+
+Manual electric meter inspection at TPCODL was:
+
+| Challenge | Impact |
+|-----------|--------|
+| ⏱ **Time Inefficiency** | 40+ hours per building zone |
+| 💸 **High Cost** | ₹20,000–25,000 per inspection |
+| 👁 **Human Error** | 5–10% of meters missed due to fatigue |
+| 📋 **Zero Scalability** | Serial process; cannot run across multiple buildings in parallel |
+
+These inefficiencies caused **revenue loss**, **compliance failures**, and **operational bottlenecks** across TPCODL's growing grid.
+
+---
+
+## 💡 Proposed Solution
+
+A **5-step AI-powered pipeline** that goes from raw video to automated detection reports:
+
+```
+🎥 Video Input
+    │
+    ▼
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│  Step 1         │────▶│  Step 2         │────▶│  Step 3         │
+│  Frame          │     │  Data           │     │  Dataset        │
+│  Extraction     │     │  Annotation     │     │  Preparation    │
+│  (OpenCV)       │     │  (LabelImg)     │     │  (Python)       │
+│  ~5 min         │     │  ~60 min        │     │  ~2 min         │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+                                                        │
+                                                        ▼
+                                        ┌─────────────────────────┐
+                                        │  Step 4                 │
+                                        │  Model Training         │
+                                        │  (YOLOv5 + Transfer     │
+                                        │   Learning) ~120 min    │
+                                        └─────────────────────────┘
+                                                        │
+                                                        ▼
+                                        ┌─────────────────────────┐
+                                        │  Step 5                 │
+                                        │  Inference & Results    │
+                                        │  (152 FPS, JSON + DB)   │
+                                        └─────────────────────────┘
+                                                        │
+                                                        ▼
+                                 📊 Detections | Bounding Boxes | Reports
+```
+
+---
+
+## 🏆 Key Results
 
 <div align="center">
 
-<a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white"/></a>
-<a href="https://pytorch.org"><img src="https://img.shields.io/badge/PyTorch-2.0.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/></a>
-<a href="https://github.com/ultralytics/yolov5"><img src="https://img.shields.io/badge/YOLOv5-v7.0.13-00FFFF?style=for-the-badge&logo=github&logoColor=black"/></a>
-<a href="https://flask.palletsprojects.com"><img src="https://img.shields.io/badge/Flask-2.3.3-000000?style=for-the-badge&logo=flask&logoColor=white"/></a>
-<a href="https://opencv.org"><img src="https://img.shields.io/badge/OpenCV-4.8.1-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white"/></a>
-<img src="https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/Status-Production Ready-22c55e?style=for-the-badge"/>
-
-<br><br>
-
-<p><b>Internship Project &nbsp;·&nbsp; TPCODL (TP Central Odisha Distribution Ltd.) &nbsp;·&nbsp; 2026</b><br>
-Developed by <b>Sumit Kumar Sahu</b> &nbsp;·&nbsp; B.Tech CS (AI &amp; ML)</p>
+| Metric | Value |
+|--------|-------|
+| 🎯 **Precision** | **95%+** |
+| 📡 **Recall** | **96%** |
+| 📐 **mAP@50** | **0.94** |
+| ⚡ **GPU Inference Speed** | **152 FPS (6.5 ms/image)** |
+| 📦 **Model Size** | **14 MB** |
+| 🕒 **Training Time** | **~2 hours (RTX 3060)** |
+| 🖼️ **Training Images** | **1,000** |
 
 </div>
 
 ---
 
-## 📋 Table of Contents
-
-- [Executive Summary](#executive-summary)
-- [Problem Statement](#problem-statement)
-- [Proposed Solution](#proposed-solution)
-- [Technology Stack](#technology-stack)
-- [System Architecture](#system-architecture)
-- [Pipeline — All 5 Steps](#pipeline--all-5-steps)
-- [Transfer Learning](#transfer-learning)
-- [Project File Structure](#project-file-structure)
-- [Flask REST API](#flask-rest-api)
-- [Live Web Interface](#live-web-interface)
-- [Impact Analysis](#impact-analysis)
-- [Conclusion](#conclusion)
-- [Future Scope](#future-scope)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Troubleshooting](#troubleshooting)
-- [Author](#author)
-
----
-
-## Executive Summary
-
-<img src="screenshots/slide_03.jpg" width="100%" alt="Executive Summary"/>
-
-<br>
-
-An **end-to-end automated electric meter detection system** powered by **YOLOv5 deep learning** — identifying and precisely locating electric meters in images and videos. Built during an internship at **TPCODL**, this system replaces expensive, error-prone manual field inspections with a fully automated, scalable AI pipeline.
-
-**Objectives:**
-
-- 🎯 Automate detection of electric meters in field survey video footage
-- ⏱️ Reduce inspection time from **40+ hours → under 2 hours** per building zone
-- 🌐 Deploy as a **REST API** for seamless TPCODL infrastructure integration
-- ✅ Achieve minimum 90% detection accuracy — **final result: 95%+ precision**
-
----
-
-## Problem Statement
-
-<img src="screenshots/slide_04.jpg" width="100%" alt="Problem Statement"/>
-
-<br>
-
-Manual electric meter inspection at TPCODL was **inefficient, expensive, and error-prone**:
-
-| Issue | Old Way | Impact |
-|-------|---------|--------|
-| ⏱️ Time Inefficiency | 40+ hours / building | Field teams walk every floor, record manually |
-| 💸 High Cost | ₹20,000–₹25,000 / inspection | Unsustainable across hundreds of buildings |
-| 👁️ Human Error | 5–10% meters missed | Revenue loss and compliance failures |
-| 📋 No Scalability | 1 team, serial process | Cannot scale to TPCODL's growing grid |
-
----
-
-## Proposed Solution
-
-<img src="screenshots/slide_05.jpg" width="100%" alt="Proposed Solution"/>
-
-<br>
-
-A **5-step AI pipeline** transforms raw survey videos into structured detection reports — automatically:
+## 🛠️ Technology Stack
 
 ```
-Video  -->  Frame Extraction  -->  Annotation  -->  Training  -->  Inference  -->  Results
-```
-
-| Step | What Happens | Tool | Time |
-|------|-------------|------|------|
-| **1** | Extract frames from video | OpenCV | ~5 min |
-| **2** | Manually annotate meters | LabelImg / Roboflow | ~60 min |
-| **3** | Prepare train/val/test splits | Python | ~2 min |
-| **4** | Train YOLOv5 model | YOLOv5 + PyTorch | ~120 min |
-| **5** | Run inference + save results | PyTorch | ~5 min |
-
----
-
-## Technology Stack
-
-<img src="screenshots/slide_06.jpg" width="100%" alt="Technology Stack"/>
-
-<br>
-
-| Technology | Version | Role |
-|-----------|---------|------|
-| Python | `3.10+` | Core language |
-| YOLOv5 | `v7.0.13` | Object detection — 152 FPS, 14 MB model |
-| PyTorch | `2.0.1` | Deep learning framework + GPU acceleration |
-| OpenCV | `4.8.1` | Frame extraction + image manipulation |
-| Flask | `2.3.3` | Lightweight REST API server |
-| NumPy | `1.24.3` | Numerical computing + matrix operations |
-| Pillow | `10.0.1` | Image load / save / transform |
-| TorchVision | `0.15.2` | Vision transforms + dataset loaders |
-| Flask-CORS | `4.0.0` | Cross-origin API access for browser clients |
-
----
-
-## System Architecture
-
-<img src="screenshots/slide_07.jpg" width="100%" alt="System Architecture"/>
-
-<br>
-
-```
-[VIDEO INPUT]         data/videos/
-      |
-      v
-[STEP 1]  Frame Extraction  (OpenCV)       -->  data/frames/extracted/       ~5 min
-      |
-      v
-[STEP 2]  Manual Annotation (LabelImg)     -->  data/frames/annotated/       ~60 min
-      |
-      v
-[STEP 3]  Dataset Preparation (Python)     -->  data/dataset/  70/15/15      ~2 min
-      |
-      v
-[STEP 4]  YOLOv5 Training (PyTorch)        -->  models/meter_detection/      ~120 min
-      |
-      v
-[STEP 5]  Inference and Results            -->  results/ + SQLite + REST API
+┌─────────────────────────────────────────────────────────────┐
+│                    TECHNOLOGY STACK                         │
+├──────────────────┬──────────────────────────────────────────┤
+│ Language         │ Python 3.10+                             │
+│ Detection Model  │ YOLOv5s v7.0.13 (transfer learning)     │
+│ Deep Learning    │ PyTorch 2.0.1 + TorchVision 0.15.2      │
+│ Computer Vision  │ OpenCV 4.8.1                             │
+│ API Framework    │ Flask 2.3.3 + Flask-CORS 4.0.0          │
+│ Image Processing │ Pillow 10.0.1                            │
+│ Numerical Ops    │ NumPy 1.24.3                             │
+│ Database         │ SQLite (detections.db)                   │
+│ Annotation Tools │ LabelImg (primary), Roboflow, CVAT       │
+│ GPU Acceleration │ CUDA (CPU fallback available)            │
+└──────────────────┴──────────────────────────────────────────┘
 ```
 
 ---
 
-## Pipeline — All 5 Steps
+## 🏗️ System Architecture
+
+### Flask REST API Flow
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                                                            │
+│   CLIENT (Browser / TPCODL System / Mobile App)           │
+│                │                                           │
+│                │  POST /detect  (image file)               │
+│                ▼                                           │
+│   ┌─────────────────────────┐                             │
+│   │    Flask REST API       │  ← run_flask_app.py         │
+│   │    Port: 5000           │  ← app/app.py               │
+│   └────────────┬────────────┘                             │
+│                │  inference request                        │
+│                ▼                                           │
+│   ┌─────────────────────────┐                             │
+│   │    YOLOv5 Model         │  ← models/best.pt           │
+│   │    (PyTorch + CUDA)     │  ← 14 MB, 152 FPS           │
+│   └────────────┬────────────┘                             │
+│                │                                           │
+│                ▼                                           │
+│   JSON Response:                                           │
+│   { "detections": [...], "total_meters": N,               │
+│     "processing_ms": 6.5 }                                │
+│                                                            │
+└────────────────────────────────────────────────────────────┘
+```
 
 ---
+
+## 📁 Project Structure
+
+```
+meter_detection_project/
+│
+├── 📂 data/
+│   ├── 📂 videos/                  ← Input MP4/AVI survey videos
+│   ├── 📂 frames/
+│   │   ├── extracted/              ← Step 1 output: extracted JPG frames
+│   │   └── annotated/              ← Step 2 output: YOLO .txt label files
+│   └── 📂 dataset/
+│       ├── images/
+│       │   ├── train/              ← 700 training images (70%)
+│       │   ├── val/                ← 150 validation images (15%)
+│       │   └── test/               ← 150 test images (15%)
+│       ├── labels/
+│       │   ├── train/
+│       │   ├── val/
+│       │   └── test/
+│       └── dataset.yaml            ← YOLO dataset config
+│
+├── 📂 models/
+│   ├── yolov5s.pt                  ← Pretrained COCO weights (14 MB)
+│   └── 📂 meter_detection/
+│       └── weights/
+│           └── best.pt             ← Your trained model (best checkpoint)
+│
+├── 📂 results/
+│   └── detections/                 ← Output annotated images
+│
+├── 📂 src/
+│   ├── config.py                   ← Config class (loads config.json)
+│   ├── pipeline.py                 ← Core pipeline (step1–step5 methods)
+│   └── utils.py                    ← Helper utilities
+│
+├── 📂 app/
+│   ├── __init__.py
+│   └── app.py                      ← Flask app factory + REST API routes
+│
+├── 📂 templates/
+│   ├── index.html                  ← Detection dashboard UI
+│   └── login.html                  ← Login / Signup page
+│
+├── 📂 uploads/                     ← Images uploaded via /api/detect
+├── 📂 upload_videos/               ← Videos uploaded via /upload_video
+│
+├── 📂 yolov5/                      ← YOLOv5 submodule / library
+│
+├── run_step_1.py                   ← Frame extraction runner
+├── run_step_2.py                   ← (Annotation — manual step)
+├── run_step_3.py                   ← Dataset preparation runner
+├── run_step_4.py                   ← Model training runner
+├── run_step_5.py                   ← Inference runner
+├── run_full_pipeline.py            ← Master runner (all 5 steps)
+├── run_flask_app.py                ← Start the REST API server
+├── fix_labels.py                   ← Fix annotation class ID mismatches
+├── show_users.py                   ← View registered users (debug)
+├── test_torch_only.py              ← Verify PyTorch install
+│
+├── detections.db                   ← SQLite database (detection history)
+├── config.json                     ← All project settings (single source)
+├── requirements.txt                ← All 9 Python dependencies
+└── .env                            ← Environment variables (Flask config)
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- NVIDIA GPU with CUDA (optional but recommended — CPU fallback available)
+- Git
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/meter-detection-project.git
+cd meter-detection-project
+```
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Linux / macOS
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Verify PyTorch Installation
+
+```bash
+python test_torch_only.py
+# Expected: torch version: 2.0.1 | rand: tensor([...])
+```
+
+### 5. Add Your Videos
+
+Place your survey `.mp4` / `.avi` videos inside:
+```
+data/videos/
+```
+
+---
+
+## 🔄 5-Step Pipeline
+
+Run each step sequentially, or use the master runner:
+
+```bash
+# Run everything at once (with interactive prompts)
+python run_full_pipeline.py
+```
+
+Or run steps individually:
 
 ### Step 1 — Frame Extraction
 
-<img src="screenshots/slide_08.jpg" width="100%" alt="Step 1 Frame Extraction"/>
-
-<br>
-
-```python
-pipeline = MeterDetectionPipeline()
-num_frames = pipeline.step1_extract_frames()
-# Output: ~360 JPG images saved to data/frames/extracted/
+```bash
+python run_step_1.py
 ```
 
-A 60-second video at 30 FPS = 1,800 frames. Sampling every 5th frame gives ~360 images — enough coverage while saving **80% disk space**.
+> Extracts every 5th frame from input videos using OpenCV. A 60-second video at 30 FPS → ~360 JPG images saved to `data/frames/extracted/`.
 
-```
-survey.mp4  -->  cv2.VideoCapture()  -->  frame_count % 5 == 0  -->  frame_0001.jpg ... frame_0360.jpg
-```
+### Step 2 — Data Annotation *(manual)*
 
----
+Use **LabelImg** to annotate meters with bounding boxes:
 
-### Step 2 — Data Annotation
-
-<img src="screenshots/slide_09.jpg" width="100%" alt="Step 2 Data Annotation"/>
-
-<br>
-
-Drawing bounding boxes on every frame to teach the AI where meters are.
-
-| Tool | Type | Notes |
-|------|------|-------|
-| **LabelImg** | Desktop, open-source | Primary tool — saves in YOLO `.txt` format |
-| **Roboflow** | Cloud-based | Upload, annotate, auto-export, team support |
-| **CVAT** | Web-based | Professional-grade annotation platform |
-
-**YOLO label format** — one `.txt` per image:
-
-```
-class_id   center_x   center_y   width   height
-0          0.45       0.32       0.25    0.30
+```bash
+pip install labelImg
+labelImg data/frames/extracted/ data/frames/annotated/
 ```
 
-All values normalized 0–1. `class_id = 0 = meter`.
+YOLO annotation format (saved per image as `.txt`):
+```
+# <class_id>  <center_x>  <center_y>  <width>  <height>
+0              0.45        0.32        0.25     0.30
+```
 
-**Stats:** 1,000 images · ~2,400 bounding boxes · ~60 minutes annotation time
-
----
+> Alternatively use [Roboflow](https://roboflow.com) for cloud-based annotation with auto-export.
 
 ### Step 3 — Dataset Preparation
 
-<img src="screenshots/slide_10.jpg" width="100%" alt="Step 3 Dataset Preparation"/>
-
-<br>
-
-| Split | Ratio | Images | Role |
-|-------|-------|--------|------|
-| **Train** | 70% | 700 | Model learns — weights updated each epoch |
-| **Val** | 15% | 150 | Monitors overfitting — early stopping signal |
-| **Test** | 15% | 150 | Final evaluation — never seen during training |
-
-```python
-splits = pipeline.step3_prepare_dataset()
-# Generates: data/dataset/dataset.yaml  (required by YOLOv5)
+```bash
+python run_step_3.py
 ```
 
----
+> Splits annotated frames into **70% Train / 15% Val / 15% Test** and generates `dataset.yaml` for YOLO.
 
 ### Step 4 — Model Training
 
-<img src="screenshots/slide_11.jpg" width="100%" alt="Step 4 Model Training"/>
-
-<br>
-
 ```bash
-python yolov5/train.py \
-  --img 640 --batch 16 --epochs 50 \
-  --data data/dataset/dataset.yaml \
-  --weights yolov5s.pt \
-  --device 0 --patience 20 \
-  --project models --name meter_detection
+python run_step_4.py
 ```
 
-**Training Progression:**
+> Trains YOLOv5s using transfer learning from pretrained COCO weights. Training config from `config.json`:
+
+```json
+"training": {
+    "img_size": 640,
+    "batch_size": 16,
+    "epochs": 50,
+    "device": 0,
+    "patience": 20
+}
+```
+
+**Training progression:**
 
 | Epoch | Total Loss | Precision | Status |
-|-------|-----------|-----------|--------|
-| 1 / 50 | 2.50 | 32% | Learning starts |
-| 10 / 50 | 0.80 | 71% | Rapid improvement |
-| 25 / 50 | 0.35 | 85% | Converging |
-| **50 / 50** | **0.22** | **95%** | ✅ Best model saved |
+|-------|------------|-----------|--------|
+| 1/50  | 2.50       | 32%       | Learning starts |
+| 10/50 | 0.80       | 71%       | Improving fast |
+| 25/50 | 0.35       | 85%       | Converging |
+| 50/50 | 0.22       | **95%**   | ✅ Best model saved |
 
----
+### Step 5 — Inference & Results
 
-## Transfer Learning
-
-<img src="screenshots/slide_12.jpg" width="100%" alt="Transfer Learning"/>
-
-<br>
-
-| | Without Transfer Learning | With Transfer Learning |
-|--|--|--|
-| Starting weights | Random — knows nothing | `yolov5s.pt` pretrained on 1.4M COCO images |
-| Images needed | 10,000+ minimum | **1,000 images** |
-| Training time | 5–7 days | **~2 hours on RTX 3060** |
-| Achieved mAP | 70–80% | **0.94 mAP@50** |
-
----
-
-### Step 5 — Inference and Results
-
-<img src="screenshots/slide_13.jpg" width="100%" alt="Step 5 Inference and Results"/>
-
-<br>
-
-```python
-model   = torch.load('models/meter_detection/weights/best.pt')
-img     = cv2.resize(cv2.imread(image_path), (640, 640))
-results = model(img, conf=0.5)
-# Draw bounding boxes and save output image
+```bash
+python run_step_5.py
 ```
 
-| Parameter | Value |
-|-----------|-------|
-| Confidence Threshold | `0.6` — only show detections >= 60% |
-| IOU / NMS Threshold | `0.45` — remove duplicate boxes |
-| Inference Speed | `6.5 ms / image` — 152 FPS on GPU |
-| Output | Annotated JPG + JSON response |
+> Runs the trained `best.pt` model on the test set. Outputs annotated images + JSON detection data to `results/detections/`.
+
+---
+
+## 🌐 Flask REST API
+
+### Start the Server
+
+```bash
+python run_flask_app.py
+```
+
+> Server starts at `http://localhost:5000`
+
+### Environment Config (`.env`)
+
+```env
+FLASK_ENV=development
+FLASK_APP=run_flask_app.py
+API_HOST=0.0.0.0
+API_PORT=5000
+MODEL_PATH=models/meter_detection/weights/best.pt
+DEVICE=cuda
+MAX_FILE_SIZE_MB=50
+```
+
+### API Endpoint
+
+**`POST /detect`** — Upload an image, get back detections.
+
+```bash
+curl -X POST http://localhost:5000/detect \
+     -F "file=@your_image.jpg"
+```
+
+**Response:**
 
 ```json
 {
   "detections": [
-    { "x1": 102, "y1": 155, "x2": 220, "y2": 280, "conf": 0.96 },
-    { "x1": 340, "y1": 88,  "x2": 465, "y2": 205, "conf": 0.91 }
+    {"x1": 102, "y1": 155, "x2": 220, "y2": 280, "conf": 0.96},
+    {"x1": 340, "y1": 88,  "x2": 465, "y2": 205, "conf": 0.91}
   ],
   "total_meters": 2,
   "processing_ms": 6.5
 }
 ```
 
----
+### Web UI Features
 
-## Project File Structure
-
-<img src="screenshots/slide_14.jpg" width="100%" alt="Project File Structure"/>
-
-<br>
-
-```
-meter_detection_project/
-|
-+-- data/
-|   +-- videos/                   <-- Input MP4/AVI survey videos
-|   +-- frames/
-|   |   +-- extracted/            <-- Step 1 JPG output (~360 images)
-|   |   +-- annotated/            <-- Step 2 YOLO label .txt files
-|   +-- dataset/
-|       +-- images/train|val|test/
-|       +-- labels/train|val|test/
-|       +-- dataset.yaml
-|
-+-- models/
-|   +-- yolov5s.pt                <-- Pretrained COCO weights
-|   +-- meter_detection/
-|       +-- weights/
-|           +-- best.pt           <-- Your trained model
-|
-+-- results/detections/           <-- Output annotated images + JSON
-+-- src/config.py                 <-- Config class
-+-- src/pipeline.py               <-- Core step1-step5 logic
-+-- app/app.py                    <-- Flask REST API backend
-+-- templates/index.html          <-- Web UI dashboard
-+-- templates/login.html          <-- Login / Signup page
-+-- config.json                   <-- All settings (single source of truth)
-+-- requirements.txt              <-- 9 Python dependencies
-+-- fix_labels.py                 <-- Fix annotation class ID mismatches
-+-- detections.db                 <-- SQLite results database
-+-- run_full_pipeline.py          <-- Master runner (all 5 steps)
-+-- run_step_1.py / 3 / 4 / 5    <-- Individual step runners
-+-- run_flask_app.py              <-- Start server on port 5000
-```
+| Feature | Description |
+|---------|-------------|
+| 🔐 Login / Signup | User authentication page |
+| 📤 Image Upload | Drag & drop or browse image files |
+| 🎚️ Confidence Control | Adjustable confidence threshold slider |
+| 🖼️ Live Detection | Annotated output with bounding boxes |
+| 📋 Detection History | Last 50 detection results with timestamps |
+| ⬇️ Download History | Export detection log as CSV/JSON |
 
 ---
 
-## Flask REST API
+## 📊 Model Performance
 
-<img src="screenshots/slide_15.jpg" width="100%" alt="Flask REST API"/>
+### Final Metrics on Test Set
 
-<br>
+```
+┌─────────────────────────────────────────────┐
+│           MODEL EVALUATION RESULTS          │
+├─────────────────┬───────────────────────────┤
+│ Precision       │  95%+                     │
+│ Recall          │  96%                      │
+│ mAP@50          │  0.94                     │
+│ Inference Time  │  6.5 ms/image             │
+│ FPS (GPU)       │  152 FPS (RTX 3060)       │
+│ Model Size      │  14 MB                    │
+│ Conf Threshold  │  0.60                     │
+│ IOU Threshold   │  0.45 (NMS)               │
+└─────────────────┴───────────────────────────┘
+```
+
+### Transfer Learning — Why It Works
+
+| Aspect | Without TL | With Transfer Learning (Ours) |
+|--------|-----------|-------------------------------|
+| Starting point | Random weights | YOLOv5s.pt (1.4M COCO images) |
+| Images needed | 10,000+ | **1,000** |
+| Training time | 5–7 days | **~2 hours** |
+| Expected mAP | 70–80% | **0.94** |
+
+---
+
+## 📈 Business Impact
+
+```
+BEFORE  ──────────────────────────────────  AFTER
+─────────────────────────────────────────────────
+⏱  Time/Building   40+ hours    →    2 hours    (95% ↓)
+💰  Cost/Inspect  ₹25,000       →   ₹2,000      (90% ↓)
+👁  Miss Rate      5–10%        →   < 5%        (2× better)
+📊  Accuracy       ~90%         →   95%+        (+5%)
+📋  Reports        Manual paper →   Auto JSON   (100% digital)
+🔁  Scalability    1 team       →   Unlimited   (fully parallel)
+```
+
+> **ROI Positive after just 2 buildings inspected.**
+
+---
+
+## ⚠️ Challenges & Solutions
+
+| Challenge | Solution Applied |
+|-----------|-----------------|
+| 🔴 CUDA Out-of-Memory (OOM) during training | Reduced batch size from 16 → 8 |
+| 🔴 Multiple annotation class IDs from different tools | `fix_labels.py` — normalizes all class IDs to `0` |
+| 🔴 Model overfitting on small dataset (1000 images) | Early stopping (patience=20) + SGD + weight decay |
+| 🔴 PyTorch import conflicts at startup | Moved `import torch` to top of all entry scripts |
+| 🔴 Annotation bottleneck (manual labeling) | Supplemented LabelImg with Roboflow for speed |
+
+---
+
+## 🔮 Future Scope
+
+```
+1. 🏷️  Multi-class Detection    — Analog / Digital / Smart meter types
+2. 📡  Real-time Video Stream   — Live CCTV / drone feed integration
+3. 🤖  Edge Deployment          — Jetson Nano / Raspberry Pi for offline use
+4. 🧠  Active Learning          — Model flags uncertain detections for review
+5. 🌙  Night Vision Support     — Low-light images + histogram equalization
+6. 🔗  TPCODL System Link       — Direct asset management DB integration
+7. 🐳  Docker + Cloud Deploy    — AWS / GCP containerized deployment
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
 
 ```bash
-python run_flask_app.py
-# Live at: http://localhost:5000
-```
+# Fork the repo
+git fork https://github.com/YOUR_USERNAME/meter-detection-project
 
-**Endpoints:**
+# Create your feature branch
+git checkout -b feature/amazing-feature
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/detect` | Upload image → bounding boxes + confidence JSON |
-| `POST` | `/api/upload_video` | Upload video for batch processing |
-| `GET` | `/api/history` | Last 50 detection records from SQLite |
-| `GET` | `/` | Web UI dashboard |
+# Commit your changes
+git commit -m "feat: add amazing feature"
 
-```bash
-curl -X POST http://localhost:5000/api/detect \
-  -F "file=@meter_photo.jpg" | python -m json.tool
+# Push to the branch
+git push origin feature/amazing-feature
+
+# Open a Pull Request
 ```
 
 ---
 
-## Live Web Interface
+## 📄 License
 
-### Create Account
-
-<img src="screenshots/slide_16.jpg" width="100%" alt="Create Account"/>
-
-<br>
-
-### Login
-
-<img src="screenshots/slide_17.jpg" width="100%" alt="Login"/>
-
-<br>
-
-### Detection Dashboard
-
-<img src="screenshots/slide_18.jpg" width="100%" alt="Detection Dashboard"/>
-
-<br>
-
-1. Upload a JPG or PNG photo
-2. Set confidence threshold (default 60%)
-3. Press Detect — runs in 6.5 ms
-4. View annotated output with bounding boxes and count
-
-### Detection History
-
-<img src="screenshots/slide_19.jpg" width="100%" alt="Detection History"/>
-
-<br>
-
-### Full System View
-
-<img src="screenshots/slide_20.jpg" width="100%" alt="Full System"/>
-
-<br>
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
-
-## Impact Analysis
-
-<img src="screenshots/slide_21.jpg" width="100%" alt="Impact Analysis"/>
-
-<br>
-
-| KPI | Before (Manual) | After (AI) | Improvement |
-|-----|----------------|------------|-------------|
-| Time per Building | 40+ hours | 2 hours | ✅ 95% faster |
-| Inspection Cost | ₹25,000 | ₹2,000 | ✅ 90% savings |
-| Meter Miss Rate | 5–10% | less than 5% | ✅ 2x fewer misses |
-| Scalability | 1 team, serial | Unlimited parallel | ✅ Fully scalable |
-| Reporting | Manual + paper | Auto JSON + SQLite | ✅ 100% digital |
-| Accuracy | ~90% (fatigue) | 95%+ consistent | ✅ +5% accuracy |
-
----
-
-## Conclusion
-
-<img src="screenshots/slide_22.jpg" width="100%" alt="Conclusion"/>
-
-<br>
-
-- ✅ Fully functional end-to-end meter detection system using YOLOv5
-- ✅ **95% Precision · 96% Recall · 0.94 mAP** — exceeded the 90% target
-- ✅ Inspection time cut by 95% — 40 hours → 2 hours per building
-- ✅ Cost cut by 90% — ₹25,000 → ₹2,000 per inspection
-- ✅ Working REST API ready for TPCODL system integration
-- ✅ Transfer learning — trained in 2 hours with only 1,000 images
-- ✅ Production-ready with Flask API, SQLite logging, and full web UI
-
----
-
-## Future Scope
-
-| # | Enhancement | Description |
-|---|------------|-------------|
-| 1 | Multi-class Detection | Detect analog, digital, and smart meters separately |
-| 2 | Real-time Video Streams | Connect to CCTV or drone feeds for live monitoring |
-| 3 | Edge Deployment | Run on Jetson Nano / Raspberry Pi for offline inspections |
-| 4 | Active Learning | Model flags uncertain detections — reduces annotation by 70% |
-| 5 | Night Vision | Low-light training data + histogram equalization |
-| 6 | TPCODL Integration | Write meter locations directly to asset management DB |
-| 7 | Docker + Cloud | Deploy on AWS / GCP for scalable multi-site production |
-
----
-
-## Quick Start
-
-### 1 — Clone the Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/meter-detection-system.git
-cd meter-detection-system
-```
-
-### 2 — Create Virtual Environment
-
-```bash
-python -m venv venv
-venv\Scripts\activate        # Windows
-source venv/bin/activate     # macOS / Linux
-```
-
-### 3 — Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4 — Clone YOLOv5
-
-```bash
-git clone https://github.com/ultralytics/yolov5.git
-```
-
-### 5 — Run Full Pipeline
-
-```bash
-python run_full_pipeline.py
-```
-
-Or step by step:
-
-```bash
-python run_step_1.py    # Extract frames
-                        # Annotate with LabelImg or Roboflow
-python run_step_3.py    # Prepare dataset splits
-python run_step_4.py    # Train model (~2 hrs on GPU)
-python run_step_5.py    # Inference + save results
-```
-
-### 6 — Launch Web Interface
-
-```bash
-python run_flask_app.py
-# Open: http://localhost:5000
-```
-
----
-
-## Configuration
-
-All settings in `config.json` — no Python code changes needed:
-
-```json
-{
-  "extraction": { "frame_interval": 5, "format": "jpg" },
-  "training": {
-    "img_size": 640,
-    "batch_size": 16,
-    "epochs": 50,
-    "device": 0,
-    "patience": 20
-  },
-  "inference": {
-    "conf_threshold": 0.5,
-    "iou_threshold": 0.45
-  }
-}
-```
-
-| Key | Default | When to change |
-|-----|---------|----------------|
-| `frame_interval` | `5` | Lower = more frames = more training data |
-| `batch_size` | `16` | Reduce to `8` if you get CUDA Out of Memory error |
-| `epochs` | `50` | Increase if accuracy is not yet sufficient |
-| `conf_threshold` | `0.5` | Raise to reduce false positives |
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| CUDA Out of Memory | Reduce `batch_size` to `8` in `config.json` |
-| No module named torch | Activate venv then `pip install -r requirements.txt` |
-| Dataset YAML not found | Run `python run_step_3.py` before training |
-| Port 5000 in use | Kill existing process or change port in `run_flask_app.py` |
-| Label class mismatch | Run `python fix_labels.py` to normalize all class IDs to `0` |
-| Weights not found | Check `models/meter_detection/weights/best.pt` exists |
-
----
-
-## Author
 
 <div align="center">
 
-<h3>Sumit Kumar Sahu</h3>
-<p>B.Tech — Computer Science (Artificial Intelligence &amp; Machine Learning)</p>
-<p>Internship Project &nbsp;·&nbsp; <b>TPCODL</b> &nbsp;·&nbsp; 2026</p>
+---
 
-<a href="https://github.com/YOUR_USERNAME">
-  <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white"/>
-</a>
-&nbsp;
-<a href="https://linkedin.com/in/YOUR_PROFILE">
-  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
-</a>
+**Built with ❤️ by Sumit Kumar Sahu**
 
-<br><br>
+*B.Tech Computer Science (AI & ML) | Internship Project 2026*
 
-<img src="screenshots/slide_23.jpg" width="75%" alt="Thank You"/>
+*Developed for TPCODL Field Operations Automation*
 
-<br><br>
+---
 
-<b>⭐ Found this useful? Please star the repository! ⭐</b>
-
-<br>
-
-<i>Built with ❤️ using YOLOv5 · PyTorch · Flask · OpenCV · Python</i>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f0c29,100:302b63&height=100&section=footer"/>
 
 </div>
