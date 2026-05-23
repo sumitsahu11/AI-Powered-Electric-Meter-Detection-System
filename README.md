@@ -28,33 +28,23 @@
 
 ---
 
-<!-- About Me Section with Side by Side Layout -->
-<img align="right" alt="AI Coding GIF" width="360" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif"/>
+## 🧠 About Me
 
-### 🧠 About Me
+<img align="right" alt="AI Coding GIF" width="340" src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif"/>
 
-```python
-class SumitKumarSahu:
-    def __init__(self):
-        self.name        = "Sumit Kumar Sahu"
-        self.role        = "AI/ML Engineer"
-        self.location    = "Bhubaneswar, India 🇮🇳"
-        self.education   = "B.Tech CS (AI & ML) — 2026"
-        self.email       = "sumitkumarsahu1111@gmail.com"
-        self.phone       = "+91 93484 52606"
+👋 Hey there! I'm **Sumit Kumar Sahu**, an aspiring **AI/ML Engineer** from 🇮🇳 Bhubaneswar, India, graduating in **B.Tech CS (AI & ML) — 2026**.
 
-    @property
-    def focus_areas(self):
-        return [
-            "Computer Vision 👁️",
-            "Deep Learning 🧬",
-            "Intelligent Automation 🤖",
-            "Full-Stack AI APIs 🚀",
-        ]
+I love turning messy real-world data into intelligent, production-ready systems. Whether it's training a computer vision model on field images or automating financial pipelines end-to-end — I build things that *actually work*.
 
-    def life_motto(self):
-        return "Build things that think. 💡"
-```
+🎯 **What drives me:**
+- 👁️ **Computer Vision** — making machines see and understand the world
+- 🧬 **Deep Learning** — pushing state-of-the-art architectures to production
+- 🤖 **Intelligent Automation** — eliminating repetitive human work at scale
+- 🚀 **Full-Stack AI APIs** — from model training to live deployment
+
+📫 Reach me at **sumitkumarsahu1111@gmail.com** · 📞 **+91 93484 52606**
+
+> *"Build things that think. 💡"*
 
 <br clear="right"/>
 
@@ -69,7 +59,7 @@ class SumitKumarSahu:
 ### 🏢 Tata TPCODL
 **AI/ML Intern** &nbsp; `Dec 2025 – Feb 2026`
 
-- 🎯 Deployed a **Computer Vision** system for field meter inspection eliminating all manual image validation
+- 🎯 Deployed a **Computer Vision** system for field meter inspection — eliminated all manual image validation
 - ⚡ Integrated **YOLOv5** end-to-end into a **Flask API** backend — production-ready from day one
 - 🏭 Scaled across live field operations with zero downtime
 
@@ -93,7 +83,6 @@ class SumitKumarSahu:
 
 <div align="center">
 
-<!-- Project Cards -->
 <a href="#">
 <img src="https://github-readme-stats.vercel.app/api/pin/?username=sumitkumarsahu&repo=meter-detection&theme=github_dark&border_color=00d4ff&title_color=00d4ff&icon_color=00d4ff" />
 </a>
@@ -145,8 +134,6 @@ Hybrid **TF-IDF + RapidFuzz** matching engine:
 
 <div align="center">
 
-<!-- Animated Skills Section -->
-
 **Languages**
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -197,7 +184,6 @@ Hybrid **TF-IDF + RapidFuzz** matching engine:
 
 <br/>
 
-<!-- GitHub Activity Graph -->
 <div align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=sumitkumarsahu&theme=github-compact&bg_color=0d1117&color=00d4ff&line=00d4ff&point=ffffff&area=true&hide_border=false&border_color=00d4ff" width="95%" />
 </div>
@@ -264,7 +250,6 @@ Hybrid **TF-IDF + RapidFuzz** matching engine:
 
 <br/>
 
-<!-- Animated Footer Wave -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:16213e,50:1a1a2e,100:0d1117&height=120&section=footer&animation=fadeIn" />
 
 </div>
